@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Leído</string>
+    <string name="tab_leidos">Leídos</string>
+    <string name="tab_deseados">Deseados</string>
+    <string name="msg_leidos">Aquí aparecerán los libros que leíste</string>
+    <string name="msg_deseados">Aquí aparecerán los libros que deseas leer</string>
+</resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- ActionBar (provisto por el tema) se mantiene; título se centra desde MainActivity -->
+
+    <!-- Contenedor de tabs arriba -->
+    <LinearLayout
+        android:id="@+id/topTabs"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:background="@color/app_bar_bg"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/tabLeidos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tab_leidos"
+            android:textSize="16sp"
+            android:textColor="@color/tab_inactive_text"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/tabDeseados"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tab_deseados"
+            android:textSize="16sp"
+            android:textColor="@color/tab_inactive_text"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <!-- Contenedor para fragmento de contenido -->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_below="@id/topTabs"
+        android:layout_above="@+id/bottomSpacer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Spacer/bottom area (por compatibilidad) -->
+    <View
+        android:id="@+id/bottomSpacer"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+</RelativeLayout>
