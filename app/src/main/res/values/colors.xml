@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colores de tu app -->
     <color name="tab_active_text">#FFFFFF</color>
     <color name="tab_inactive_text">#000000</color>
     <color name="app_bar_bg">#1976D2</color>
+
+    <!-- Paleta estándar que requieren los archivos 'values-night...' -->
+    <color name="purple_200">#BB86FC</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
+
+    <!-- color negro/white por si referencian -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>

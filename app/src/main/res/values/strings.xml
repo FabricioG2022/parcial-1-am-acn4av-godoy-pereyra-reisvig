@@ -5,4 +5,15 @@
     <string name="tab_deseados">Deseados</string>
     <string name="msg_leidos">Aquí aparecerán los libros que leíste</string>
     <string name="msg_deseados">Aquí aparecerán los libros que deseas leer</string>
+
+    <!-- Dialog / form -->
+    <string name="dialog_add_title">Añadir libro</string>
+    <string name="hint_titulo">Título (obligatorio)</string>
+    <string name="hint_autor">Autor</string>
+    <string name="hint_editorial">Editorial</string>
+    <string name="hint_isbn">ISBN</string>
+    <string name="hint_comentario">Comentario</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="error_title_required">El título es obligatorio</string>
 </resources>

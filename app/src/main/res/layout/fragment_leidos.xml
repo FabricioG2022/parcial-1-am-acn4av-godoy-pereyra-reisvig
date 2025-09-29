@@ -3,13 +3,13 @@
     android:id="@+id/fragLeidos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp">
+    android:padding="12dp">
 
-    <TextView
-        android:id="@+id/msgText"
+    <ListView
+        android:id="@+id/listLeidos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="16sp"
-        android:gravity="center" />
+        android:layout_height="match_parent"
+        android:dividerHeight="8dp"
+        android:paddingBottom="80dp" />
+
 </FrameLayout>

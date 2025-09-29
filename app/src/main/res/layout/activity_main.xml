@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- ActionBar (provisto por el tema) se mantiene; título se centra desde MainActivity -->
-
-    <!-- Contenedor de tabs arriba -->
+    <!-- Barra superior: los tabs -->
     <LinearLayout
         android:id="@+id/topTabs"
         android:layout_width="match_parent"
@@ -38,7 +36,7 @@
             android:padding="8dp" />
     </LinearLayout>
 
-    <!-- Contenedor para fragmento de contenido -->
+    <!-- Contenedor para fragments -->
     <FrameLayout
         android:id="@+id/container"
         android:layout_below="@id/topTabs"
@@ -46,10 +44,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Spacer/bottom area (por compatibilidad) -->
+    <!-- Spacer en bottom para asegurar que el FAB no tape contenido si se usa overlay -->
     <View
         android:id="@+id/bottomSpacer"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
+
+    <!-- Botón "+" fijo abajo-derecha (simulando FAB sin dependencia Material) -->
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:text="+"
+        android:textSize="28sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_button_bg"
+        android:textColor="@android:color/white" />
 </RelativeLayout>
