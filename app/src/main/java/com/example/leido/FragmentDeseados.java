@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Fragment que muestra la lista de libros deseados.
- * Long-press sobre un ítem -> confirmar -> mover a Leídos.
+ * Long press sobre un item -> opciones: Marcar como leído / Eliminar / Cancelar.
  */
 public class FragmentDeseados extends Fragment {
 
@@ -44,56 +44,55 @@ public class FragmentDeseados extends Fragment {
         // Cargar datos iniciales desde el repositorio
         refreshList();
 
-        // Long click: confirmar y mover a Leídos
+        // Long click: mostrar diálogo con opciones
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
-            // Obtener título para mostrar en el diálogo
             final int pos = position;
             final String itemLabel = displayItems.get(position);
 
             new AlertDialog.Builder(requireContext())
-                    .setTitle("Marcar como leído")
-                    .setMessage("¿Marcar \"" + itemLabel + "\" como leído?")
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    .setTitle(itemLabel)
+                    .setItems(new CharSequence[]{"Marcar como leído", "Eliminar", "Cancelar"}, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // Remover de Deseados y añadir a Leidos
                             LibroRepository repo = LibroRepository.getInstance();
-                            Libro moved = repo.removeDeseadoAt(pos);
-                            if (moved != null) {
-                                repo.addLeidoAtStart(moved);
-
-                                // Refrescar esta lista (Deseados)
-                                refreshList();
-
-                                // Intentar refrescar FragmentLeidos si está presente
-                                // (puede estar o no cargado en el container)
-                                if (getActivity() != null) {
-                                    List<Fragment> frags = getActivity().getSupportFragmentManager().getFragments();
-                                    for (Fragment f : frags) {
-                                        if (f instanceof FragmentLeidos) {
-                                            ((FragmentLeidos) f).refreshList();
-                                        }
+                            switch (which) {
+                                case 0: // Marcar como leído
+                                    Libro moved = repo.removeDeseadoAt(pos);
+                                    if (moved != null) {
+                                        repo.addLeidoAtStart(moved);
+                                        refreshList();
+                                        notifyLeidosIfPresent();
+                                        Toast.makeText(requireContext(), "\"" + moved.getTitulo() + "\" marcado como leído", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(requireContext(), "No se pudo mover el libro", Toast.LENGTH_SHORT).show();
                                     }
-                                }
-
-                                Toast.makeText(requireContext(), "\"" + moved.getTitulo() + "\" marcado como leído", Toast.LENGTH_SHORT).show();
-                            } else {
-                                // Posición inválida (caso muy raro)
-                                Toast.makeText(requireContext(), "No se pudo mover el libro (posición inválida)", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case 1: // Eliminar
+                                    Libro removed = repo.removeDeseadoAt(pos);
+                                    if (removed != null) {
+                                        refreshList();
+                                        Toast.makeText(requireContext(), "\"" + removed.getTitulo() + "\" eliminado de Deseados", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(requireContext(), "No se pudo eliminar el libro", Toast.LENGTH_SHORT).show();
+                                    }
+                                    break;
+                                case 2: // Cancelar
+                                default:
+                                    // no hacer nada
+                                    break;
                             }
                         }
                     })
-                    .setNegativeButton("Cancelar", null)
                     .show();
 
-            return true; // consumimos el evento
+            return true;
         });
 
         return root;
     }
 
     /**
-     * Actualiza la lista desde LibroRepository.
+     * Refresca la lista desde LibroRepository.
      */
     public void refreshList() {
         displayItems.clear();
@@ -102,5 +101,18 @@ public class FragmentDeseados extends Fragment {
             displayItems.add(l.toListString());
         }
         if (adapter != null) adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Busca instancia de FragmentLeidos en el FragmentManager y la refresca si existe.
+     */
+    private void notifyLeidosIfPresent() {
+        if (getActivity() == null) return;
+        List<Fragment> frags = getActivity().getSupportFragmentManager().getFragments();
+        for (Fragment f : frags) {
+            if (f instanceof FragmentLeidos) {
+                ((FragmentLeidos) f).refreshList();
+            }
+        }
     }
 }

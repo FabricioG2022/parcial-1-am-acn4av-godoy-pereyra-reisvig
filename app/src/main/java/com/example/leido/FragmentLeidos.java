@@ -1,11 +1,14 @@
 package com.example.leido;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +19,7 @@ import java.util.List;
 
 /**
  * Fragment que muestra la lista de libros leídos.
+ * Ahora permite eliminar un libro mediante long-press + confirmación.
  */
 public class FragmentLeidos extends Fragment {
 
@@ -40,9 +44,29 @@ public class FragmentLeidos extends Fragment {
         // Cargar datos iniciales desde el repositorio
         refreshList();
 
-        // Opcional: long click para eliminar (simple ejemplo)
+        // Long click: confirmar eliminación
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
-            // No implementamos borrado obligatorio por ahora; dejamos como ejercicio futuro.
+            final int pos = position;
+            final String itemLabel = displayItems.get(position);
+
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Eliminar")
+                    .setMessage("¿Eliminar \"" + itemLabel + "\" de Leídos?")
+                    .setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Libro removed = LibroRepository.getInstance().removeLeidoAt(pos);
+                            if (removed != null) {
+                                refreshList();
+                                Toast.makeText(requireContext(), "\"" + removed.getTitulo() + "\" eliminado", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(requireContext(), "No se pudo eliminar el libro", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+
             return true;
         });
 
@@ -51,7 +75,6 @@ public class FragmentLeidos extends Fragment {
 
     /**
      * Refresca la lista desde LibroRepository.
-     * Llamar cada vez que cambian los datos (por ejemplo, tras añadir).
      */
     public void refreshList() {
         displayItems.clear();

@@ -16,4 +16,11 @@
     <string name="save">Guardar</string>
     <string name="cancel">Cancelar</string>
     <string name="error_title_required">El título es obligatorio</string>
+
+    <string name="action_mark_read">Marcar como leído</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="confirm_delete_leidos">¿Eliminar "%1$s" de Leídos?</string>
+    <string name="confirm_mark_read">¿Marcar "%1$s" como leído?</string>
+    <string name="msg_deleted"> eliminado</string>
 </resources>

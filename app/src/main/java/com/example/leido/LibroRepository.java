@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Repositorio en memoria que guarda listas de libros leidos y deseados.
- * Simple singleton no persistente.
+ * Simple singleton para esta iteración (no persistente).
  */
 public class LibroRepository {
 
@@ -37,6 +37,15 @@ public class LibroRepository {
         leidos.add(0, libro);
     }
 
+    /**
+     * Remueve y retorna el libro en la posición dada de la lista de leídos.
+     * Retorna null si la posición es inválida.
+     */
+    public synchronized Libro removeLeidoAt(int index) {
+        if (index < 0 || index >= leidos.size()) return null;
+        return leidos.remove(index);
+    }
+
     // Deseados
     public synchronized List<Libro> getDeseados() {
         return Collections.unmodifiableList(deseados);
@@ -47,12 +56,11 @@ public class LibroRepository {
     }
 
     /**
-     * Elimina y devuelve el libro en la posición dada dentro de la lista de deseados.
+     * Remueve y devuelve el libro en la posición dada dentro de la lista de deseados.
      * Retorna null si la posición es inválida.
      */
     public synchronized Libro removeDeseadoAt(int index) {
         if (index < 0 || index >= deseados.size()) return null;
         return deseados.remove(index);
     }
-
 }
