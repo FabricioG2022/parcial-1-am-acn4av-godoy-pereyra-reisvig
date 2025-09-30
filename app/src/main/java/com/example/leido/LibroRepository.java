@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Repositorio en memoria que guarda listas de libros leidos y deseados.
- * Simple singleton para esta iteración (no persistente).
+ * Simple singleton no persistente.
  */
 public class LibroRepository {
 
@@ -18,9 +18,6 @@ public class LibroRepository {
         // Pre-popular con los ejemplos solicitados
         leidos.add(new Libro("Cien años de soledad", "Gabriel García Márquez", "Sudamericana", "", ""));
         leidos.add(new Libro("El nombre de la rosa", "Umberto Eco", "Sudamericana", "", ""));
-        // Nota: añadimos en el orden deseado; como mostramos insertando en 0,
-        // para que "Cien años..." quede arriba lo agregamos primero aquí y luego "El nombre..."
-        // pero en el fragment mostraremos colección tal cual esté en la lista.
         deseados.add(new Libro("Rayuela", "Julio Cortázar", "Sudamericana", "", ""));
     }
 
@@ -49,5 +46,13 @@ public class LibroRepository {
         deseados.add(0, libro);
     }
 
-    // Métodos de utilidad (opcional): borrar, buscar.. (no implementados ahora)
+    /**
+     * Elimina y devuelve el libro en la posición dada dentro de la lista de deseados.
+     * Retorna null si la posición es inválida.
+     */
+    public synchronized Libro removeDeseadoAt(int index) {
+        if (index < 0 || index >= deseados.size()) return null;
+        return deseados.remove(index);
+    }
+
 }
