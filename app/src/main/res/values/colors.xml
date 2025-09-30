@@ -3,7 +3,7 @@
     <!-- Colores de tu app -->
     <color name="tab_active_text">#FFFFFF</color>
     <color name="tab_inactive_text">#000000</color>
-    <color name="app_bar_bg">#1976D2</color>
+    <color name="app_bar_bg">#0097A7</color>
 
     <!-- Paleta estándar que requieren los archivos 'values-night...' -->
     <color name="purple_200">#BB86FC</color>
