@@ -1,4 +1,4 @@
-package com.jfam.leidoapp;
+package com.example.leido;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ public class SplashActivity extends AppCompatActivity {
 
         // Espera 1.2s y abre LoginActivity
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
             finish();
         }, 1200);
     }
